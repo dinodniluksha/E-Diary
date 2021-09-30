@@ -1,0 +1,32 @@
+.nav-header{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 45px;
+    color: rgb(74, 238, 142);
+    animation: change-color 10s ease-in-out infinite;
+
+}
+
+@keyframes change-color {
+	0%{
+        color: rgb(74, 238, 142);
+	}
+	20%{
+        color: rgb(74, 238, 230);
+	}
+	40%{
+        color: rgb(245, 163, 109);
+    }
+    60%{
+        color: rgb(248, 124, 94);
+    }
+    80%{
+        color: rgb(240, 14, 127);
+    }
+    100%{
+        color: rgb(14, 176, 240);
+	}
+}
+
+.item-size{
+    font-size: 18px;
+}
