@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-//import { SocialAuthService, SocialUser } from 'angularx-social-login';
-
+import { AuthService } from "../../auth.service";
 
 @Component({
   selector: 'app-navbar-top',
@@ -10,34 +7,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar-top.component.css']
 })
 export class NavbarTopComponent implements OnInit {
+  
+  constructor(
+    public authService: AuthService,
+  ) {}
 
-  //User!: SocialUser;
-  isLoggedin!: boolean;
+  loggedUser!: string | null;
 
-  constructor(private router: Router,
-    //private socialAuthService: SocialAuthService
-    ) {
-
-    
-  }
   ngOnInit(): void {
-
-    if(localStorage.getItem('socialusers') == null)
-    {
-      this.router.navigate(['/login']);
-    }
-  }
-
-  loggedUser = localStorage.getItem('loggeduser');
-
-  Logout()
-  {
-    // clean key in LocalStorage
-    //this.socialAuthService.signOut();
-    localStorage.removeItem('socialusers')
-    this.router.navigate(['/login']);  
+    this.authService.authPageHandler();
+    this.loggedUser = localStorage.getItem('loggeduser');
   }
 }
 
-//-------------------------------------    ----------------------------------
  
