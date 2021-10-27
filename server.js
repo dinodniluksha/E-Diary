@@ -35,14 +35,19 @@ mongoose.connect(dbConfig.url, {
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to EasyNotes application."});
+    res.json({"message": "Welcome to E-Diary application."});
 });
  
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
 
-const port = process.env.PORT || 3000;
+// // Require Items routes
+// require('./app/routes/item.routes.js')(app);
+
+//Require ItemStructure routes
+require('./app/routes/item-structure.routes.js')(app);
+
 // listen for requests
-app.listen(port, () => {
-    console.log("Server is listening");
+app.listen(3000, () => {
+    console.log("Server is listening on port 3000");
 });
