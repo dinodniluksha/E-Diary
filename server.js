@@ -43,8 +43,8 @@ app.get('/', (req, res) => {
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
 
-// // Require Items routes
-// require('./app/routes/item.routes.js')(app);
+// Require Items routes
+require('./app/routes/item.routes.js')(app);
 
 //Require ItemStructure routes
 require('./app/routes/item-structure.routes.js')(app);
