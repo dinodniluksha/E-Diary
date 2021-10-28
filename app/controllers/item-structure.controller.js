@@ -2,7 +2,6 @@ const ItemStructure = require('../models/item-structure.model.js');
 const User = require('../models/user.model.js'); 
 
 const MongoClient = require( 'mongodb' ).MongoClient;
-const url = 'mongodb://localhost:27017/';
 const dbConfig = require('../../config/database.config.js');
 
 // Create and Save a new Item Structure

@@ -23,8 +23,10 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+const dbUrl = dbConfig.serverUrl+"eDiaryDB";
+
 // Connecting to the database
-mongoose.connect(dbConfig.url, {
+mongoose.connect(dbUrl, {
     useNewUrlParser: true
 }).then(() => {
     console.log("Successfully connected to the database");    
