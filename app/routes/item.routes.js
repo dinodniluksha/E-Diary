@@ -3,6 +3,6 @@ module.exports = (app) => {
 
     // Create a new Note
     app.get('/test', Items.test);
-    app.post('/createitem', Items.createItem);
-    app.patch('/updateitem', Items.updateItem);
+    app.post('/create-item', Items.createItem);
+    app.patch('/update-item', Items.updateItem);
 }

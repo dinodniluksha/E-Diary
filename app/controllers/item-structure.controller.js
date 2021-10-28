@@ -3,6 +3,7 @@ const User = require('../models/user.model.js');
 
 const MongoClient = require( 'mongodb' ).MongoClient;
 const dbConfig = require('../../config/database.config.js');
+var ObjectId = require('mongodb').ObjectID;
 
 // Create and Save a new Item Structure
 exports.createItemStructure = (req, res) => {
@@ -83,8 +84,41 @@ exports.createItemStructure = (req, res) => {
     }); 
 };
 
-exports.getItemStructure = (req, res) => {
+exports.updateItemStructure = (req, res) => {
+    // Validate request
+    if(!req.body.id) {
+        return res.status(400).send({
+            content: req.body,
+            message: "Sorry...id field of request can not be empty"
+        });
+    }
 
+    MongoClient.connect(dbConfig.serverUrl, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("eDiaryDB");
+        const query = {_id: ObjectId(req.body.id)};
+        const update = {
+            "$set": {
+              "structureFields": JSON.parse(req.body.structurefields),
+            }
+          };
+        // Return the updated document instead of the original document
+        const options = { returnNewDocument: true };
+
+        dbo.collection("itemstructures").findOneAndUpdate(query, update, options, function(err, result) {
+          if (err) throw err;
+          console.log("Result from after updating: "+JSON.stringify(result));
+          res.send({
+              //res: result,
+              updatedExisting: result.lastErrorObject.updatedExisting,
+              message: (result.lastErrorObject.updatedExisting) ? "Recoard is updated successfuly" : "Sorry...this recoard can't be updated"
+            });
+          db.close();
+        });
+    });
+};
+
+exports.getItemStructure = (req, res) => {
     // Validate request
     if(!req.body.useremail) {
         return res.status(400).send({
