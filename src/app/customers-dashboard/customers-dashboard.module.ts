@@ -6,12 +6,14 @@ import { CustomersDashboardComponent } from './customers-dashboard.component';
 
 import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 import { NavbarSideComponent } from './navbar-side/navbar-side.component';
+import { ItemCreatorComponent } from './item-creator/item-creator.component';
 
 @NgModule({
   declarations: [
     CustomersDashboardComponent,
     NavbarTopComponent,
     NavbarSideComponent,
+    ItemCreatorComponent,
   ],
   imports: [
     CommonModule,
