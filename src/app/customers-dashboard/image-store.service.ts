@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/storage';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { Observable, Subject } from 'rxjs';
-import { map, finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

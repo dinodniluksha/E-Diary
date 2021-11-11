@@ -11,15 +11,15 @@ export class ItemCreatorComponent implements OnInit {
   form!: FormGroup;
   file!: File;
   percentage = 0;
-  nullImageUrl = 'https://firebasestorage.googleapis.com/v0/b/pro1-eece0.appspot.com/o/E-Diary_Images%2Fno_image.png?alt=media&token=88036ea7-c504-4b46-8ddc-0e5f7d9c0a18';
+  nullImageUrl = 'https://firebasestorage.googleapis.com/v0/b/e-diary-1e542.appspot.com/o/E-Diary_Images%2Fno_image.png?alt=media&token=030fe8e0-09c5-4c32-a5e8-d3af795992eb';
 
   ngOnInit(): void {
   }
 
   constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService) {
     this.form = this.fb.group({
-      useremail: ['dinod@gmail.com'],
-      type: ['Car'],
+      useremail: [''],
+      type: [''],
       attributes: this.fb.group({
         color: [''],
         price: [''],
@@ -30,15 +30,18 @@ export class ItemCreatorComponent implements OnInit {
       }),
     });
    }
-
+   
   selectImage(event:any) {
     this.file = event.target.files[0];
-    
   }
 
   itemCreate() {
     if(this.file){
       console.log(this.file);
+      this.form.patchValue({
+        useremail: 'dinod@gmail.com',
+        type: 'Car',
+      });
       this.imageStoreService.imageUpload(this.file).subscribe(
         percentage => {
           this.percentage = Math.round(percentage ? percentage : 0);
@@ -49,8 +52,12 @@ export class ItemCreatorComponent implements OnInit {
       );
     }
     else{
-      // call createitem API endpoint
+      this.form.patchValue({
+        useremail: 'dinod@gmail.com',
+        type: 'Car',
+      });
       console.log(this.form.value);
+      this.fullRest();  // call after succeed createitem API endpoint
     }
   }
 
@@ -64,13 +71,16 @@ export class ItemCreatorComponent implements OnInit {
         },
       }
     });
-    // call createitem API endpoint
     console.log(this.form.value);
+    this.fullRest();  // call after succeed createitem API endpoint 
   }
 
   var = this.imageStoreService.getItemFormUpdate().subscribe(()=>{
     this.itemFormUpdate();
   });
 
-
+  fullRest(){
+    this.form.reset();
+    window.location.reload();
+  }
 }
