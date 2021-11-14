@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-item-creator',
@@ -16,7 +17,7 @@ export class ItemCreatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService) {
+  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService, private http: HttpClient) {
     this.form = this.fb.group({
       useremail: [''],
       type: [''],
@@ -29,14 +30,14 @@ export class ItemCreatorComponent implements OnInit {
         }),
       }),
     });
-   }
-   
-  selectImage(event:any) {
+  }
+
+  selectImage(event: any) {
     this.file = event.target.files[0];
   }
 
   itemCreate() {
-    if(this.file){
+    if (this.file) {
       console.log(this.file);
       this.form.patchValue({
         useremail: 'dinod@gmail.com',
@@ -51,17 +52,21 @@ export class ItemCreatorComponent implements OnInit {
         }
       );
     }
-    else{
+    else {
       this.form.patchValue({
         useremail: 'dinod@gmail.com',
         type: 'Car',
       });
       console.log(this.form.value);
-      this.fullRest();  // call after succeed createitem API endpoint
+      this.http.post('http://e-diary-app.herokuapp.com/create-item', this.form.value).subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+      //this.fullRest(); // call after succeed createitem API endpoint
     }
   }
 
-  itemFormUpdate(){
+  itemFormUpdate() {
     console.log('Yes...uploadig completed');
     this.form.patchValue({
       attributes: {
@@ -72,15 +77,23 @@ export class ItemCreatorComponent implements OnInit {
       }
     });
     console.log(this.form.value);
-    this.fullRest();  // call after succeed createitem API endpoint 
+    this.http.post('http://e-diary-app.herokuapp.com/create-item', this.form.value).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
+    //this.fullRest();  // call after succeed createitem API endpoint 
   }
 
-  var = this.imageStoreService.getItemFormUpdate().subscribe(()=>{
+  var = this.imageStoreService.getItemFormUpdate().subscribe(() => {
     this.itemFormUpdate();
   });
 
-  fullRest(){
+  fullRest() {
     this.form.reset();
     window.location.reload();
+  }
+
+  callCreateItemEndPoint(file: File) {
+
   }
 }
