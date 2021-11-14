@@ -13,8 +13,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
+
 // for parsing multipart/form-data
-app.use(upload.array()); 
+app.use(upload.array());
 app.use(express.static('public'));
 
 // Configuring the database
@@ -23,13 +31,13 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const dbUrl = dbConfig.serverUrl+"eDiaryDB";
+const dbUrl = dbConfig.serverUrl + "eDiaryDB";
 
 // Connecting to the database
 mongoose.connect(dbUrl, {
     useNewUrlParser: true
 }).then(() => {
-    console.log("Successfully connected to the database");    
+    console.log("Successfully connected to the database");
 }).catch(err => {
     console.log('Could not connect to the database. Exiting now...', err);
     process.exit();
@@ -37,9 +45,9 @@ mongoose.connect(dbUrl, {
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to E-Diary application."});
+    res.json({ "message": "Welcome to E-Diary application." });
 });
- 
+
 // Require Notes routes
 require('./app/routes/note.routes.js')(app);
 
@@ -53,5 +61,5 @@ const port = process.env.PORT || 3000;
 
 // listen for requests
 app.listen(port, () => {
-    console.log("Server is listening on port:"+port);
+    console.log("Server is listening on port:" + port);
 });
