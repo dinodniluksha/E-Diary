@@ -9,7 +9,7 @@ export class ItemService {
   constructor(private http: HttpClient) { }
 
   callCreateItemEndPoint(formData: any) {
-    this.http.post('http://e-diary-app.herokuapp.com/create-item', formData).subscribe(
+    this.http.post('https://e-diary-app.herokuapp.com/create-item', formData).subscribe(
       (response) => {
         console.log(response);
         window.location.reload();
