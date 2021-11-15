@@ -22,7 +22,7 @@ import { ItemPageComponent } from './item-page/item-page.component';
   imports: [
     CommonModule,
     CustomersDashboardRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class CustomersDashboardModule { }

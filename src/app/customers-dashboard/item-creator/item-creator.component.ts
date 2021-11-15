@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service'
+import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service';
+import { ItemService } from 'src/app/customers-dashboard/item.service'
+
 
 @Component({
   selector: 'app-item-creator',
@@ -16,7 +18,7 @@ export class ItemCreatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService) {
+  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService, private itemService: ItemService) {
     this.form = this.fb.group({
       useremail: [''],
       type: [''],
@@ -29,14 +31,14 @@ export class ItemCreatorComponent implements OnInit {
         }),
       }),
     });
-   }
-   
-  selectImage(event:any) {
+  }
+
+  selectImage(event: any) {
     this.file = event.target.files[0];
   }
 
   itemCreate() {
-    if(this.file){
+    if (this.file) {
       console.log(this.file);
       this.form.patchValue({
         useremail: 'dinod@gmail.com',
@@ -51,17 +53,18 @@ export class ItemCreatorComponent implements OnInit {
         }
       );
     }
-    else{
+    else {
       this.form.patchValue({
         useremail: 'dinod@gmail.com',
         type: 'Car',
       });
       console.log(this.form.value);
-      this.fullRest();  // call after succeed createitem API endpoint
+      this.bindCreateItemApi();
+      this.fullReset(); // call after succeed createitem API endpoint
     }
   }
 
-  itemFormUpdate(){
+  itemFormUpdate() {
     console.log('Yes...uploadig completed');
     this.form.patchValue({
       attributes: {
@@ -72,15 +75,26 @@ export class ItemCreatorComponent implements OnInit {
       }
     });
     console.log(this.form.value);
-    this.fullRest();  // call after succeed createitem API endpoint 
+    this.bindCreateItemApi();
+    this.fullReset();  // call after succeed createitem API endpoint 
   }
 
-  var = this.imageStoreService.getItemFormUpdate().subscribe(()=>{
+  var = this.imageStoreService.getItemFormUpdate().subscribe(() => {
     this.itemFormUpdate();
   });
 
-  fullRest(){
+  fullReset() {
     this.form.reset();
-    window.location.reload();
+    //window.location.reload();
+  }
+
+  bindCreateItemApi() {
+    var formData: any = new FormData();
+
+    formData.append('useremail', this.form.get('useremail')?.value);
+    formData.append('type', this.form.get('type')?.value);
+    formData.append('attributes', JSON.stringify(this.form.get('attributes')?.value));
+
+    this.itemService.callCreateItemEndPoint(formData);
   }
 }
