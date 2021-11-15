@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { CustomersDashboardRoutingModule } from './customers-dashboard-routing.module';
 import { CustomersDashboardComponent } from './customers-dashboard.component';
@@ -24,7 +23,6 @@ import { ItemPageComponent } from './item-page/item-page.component';
     CommonModule,
     CustomersDashboardRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
   ]
 })
 export class CustomersDashboardModule { }

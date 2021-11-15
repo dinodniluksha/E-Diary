@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service'
-import { HttpClient } from '@angular/common/http';
+import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service';
+import { ItemService } from 'src/app/customers-dashboard/item.service'
+
 
 @Component({
   selector: 'app-item-creator',
@@ -17,7 +18,7 @@ export class ItemCreatorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService, private itemService: ItemService) {
     this.form = this.fb.group({
       useremail: [''],
       type: [''],
@@ -58,11 +59,8 @@ export class ItemCreatorComponent implements OnInit {
         type: 'Car',
       });
       console.log(this.form.value);
-      this.http.post('http://e-diary-app.herokuapp.com/create-item', this.form.value).subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
-      //this.fullRest(); // call after succeed createitem API endpoint
+      this.bindCreateItemApi();
+      this.fullReset(); // call after succeed createitem API endpoint
     }
   }
 
@@ -77,23 +75,26 @@ export class ItemCreatorComponent implements OnInit {
       }
     });
     console.log(this.form.value);
-    this.http.post('http://e-diary-app.herokuapp.com/create-item', this.form.value).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
-    //this.fullRest();  // call after succeed createitem API endpoint 
+    this.bindCreateItemApi();
+    this.fullReset();  // call after succeed createitem API endpoint 
   }
 
   var = this.imageStoreService.getItemFormUpdate().subscribe(() => {
     this.itemFormUpdate();
   });
 
-  fullRest() {
+  fullReset() {
     this.form.reset();
-    window.location.reload();
+    //window.location.reload();
   }
 
-  callCreateItemEndPoint(file: File) {
+  bindCreateItemApi() {
+    var formData: any = new FormData();
 
+    formData.append('useremail', this.form.get('useremail')?.value);
+    formData.append('type', this.form.get('type')?.value);
+    formData.append('attributes', JSON.stringify(this.form.get('attributes')?.value));
+
+    this.itemService.callCreateItemEndPoint(formData);
   }
 }
