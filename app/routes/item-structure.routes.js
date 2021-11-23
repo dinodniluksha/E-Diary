@@ -9,4 +9,7 @@ module.exports = (app) => {
 
     // Retriew created item structure
     app.get('/get-item-structure', ItemStructures.getItemStructure);
+
+    // Retriew created item structures
+    app.get('/get-item-structures', ItemStructures.getItemStructures);
 }
