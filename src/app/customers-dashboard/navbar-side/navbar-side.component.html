@@ -1,14 +1,8 @@
-<!-- <p>navbar-side works!</p> testing chunck -->
 <ul class="nav-side-ul">
-  <li routerLinkActive="active-nav-side"><a routerLink="car">Car</a></li>
-  <li routerLinkActive="active-nav-side"><a routerLink="land">Land</a></li>
+  <!-- <li routerLinkActive="active-nav-side"><a [routerLink]="['/car', 2]">Test-1</a></li>
+  <li routerLinkActive="active-nav-side"><a routerLink="land">Test-2</a></li> -->
 
-  <!-- <li routerLinkActive="active-nav-side" (click)="toogleTag()"><a routerLink="searches">Searches</a>
-    <ul *ngFor="let search of searches">
-      <li *ngIf="showMe"><a routerLink="/view-property" ng>{{ search.name }}</a></li>
-    </ul>
-  </li> -->
-
-  <li routerLinkActive="active-nav-side"><a routerLink="comparison">Comparison</a></li>
-  <li routerLinkActive="active-nav-side"><a routerLink="#">Settings</a></li>
+  <li routerLinkActive="active-nav-side" *ngFor="let itemStruct of itemStructs;">
+    <a [routerLink]="['/home', itemStruct.type]">{{itemStruct.type}}</a>
+  </li>
 </ul>
