@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-item-page',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-page.component.css']
 })
 export class ItemPageComponent implements OnInit {
+  sub: any;
+  type!: string | null;
+  static itemStructs: any;
 
-  constructor() { }
+  constructor(private _Activatedroute: ActivatedRoute) { }
+
 
   ngOnInit(): void {
+
+    this.sub = this._Activatedroute.paramMap.subscribe(params => {
+      console.log(params);
+      this.type = params.get('type');
+      console.log(this.type);
+
+    });
   }
+
 
 }

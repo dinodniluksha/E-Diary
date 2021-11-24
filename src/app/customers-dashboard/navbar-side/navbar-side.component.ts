@@ -1,8 +1,6 @@
-// import { Search } from './../search';
-
-// import { Search } from './../customers-dashboard/search';
-// import { SEARCHES } from './../customers-dashboard/saved-properties';
 import { Component, OnInit } from '@angular/core';
+import { ItemStruct } from '../item-struct';
+
 
 @Component({
   selector: 'app-navbar-side',
@@ -10,17 +8,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar-side.component.css']
 })
 export class NavbarSideComponent implements OnInit {
-  
-  // searches: Search[] = SEARCHES;
-  // showMe:boolean = true;
 
   constructor() { }
 
-  ngOnInit(): void {
+  itemStructs!: ItemStruct[];
+
+  dummyItemStructs = [{
+    "id": 1,
+    "type": 'Car',
+  },
+  {
+    "id": 2,
+    "type": 'Bus',
+  },
+  {
+    "id": 3,
+    "type": 'Van',
+  },
+  {
+    "id": 3,
+    "type": 'Bag',
   }
+  ];
 
-  // toogleTag(){
-  //   this.showMe=!this.showMe
-  // }
-
+  ngOnInit(): void {
+    this.itemStructs = this.dummyItemStructs;
+    console.log(this.itemStructs);
+  }
 }
+
+
