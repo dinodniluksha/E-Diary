@@ -10,6 +10,7 @@ import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 import { NavbarSideComponent } from './navbar-side/navbar-side.component';
 import { ItemCreatorComponent } from './item-creator/item-creator.component';
 import { ItemPageComponent } from './item-page/item-page.component';
+import { Globals } from './globals';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ItemPageComponent } from './item-page/item-page.component';
     CommonModule,
     CustomersDashboardRoutingModule,
     ReactiveFormsModule,
-  ]
+  ],
+  providers: [Globals],
 })
 export class CustomersDashboardModule { }
