@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service';
 import { ItemService } from 'src/app/customers-dashboard/item.service';
+import { ItemStructureService } from 'src/app/customers-dashboard/item-structure.service';
 import { Globals } from '../globals';
 
 
@@ -24,6 +25,7 @@ export class ItemCreatorComponent implements OnInit {
   }
 
   setUserAttributes(type: any) {
+    this.bindReadItemStructureApi();
     switch (type) {
       case 'Car':
         this.userAttributes = ['size', 'color', 'capacity', 'price', 'year'];
@@ -53,7 +55,13 @@ export class ItemCreatorComponent implements OnInit {
     return this.fb.group(this.attributesData);
   }
 
-  constructor(private fb: FormBuilder, private imageStoreService: ImageStoreService, private itemService: ItemService, private globals: Globals) {
+  constructor(
+    private fb: FormBuilder,
+    private imageStoreService: ImageStoreService,
+    private itemService: ItemService,
+    private itemStructureService: ItemStructureService,
+    private globals: Globals
+  ) {
     console.log(globals.itemType);
     this.setUserAttributes(globals.itemType);
     this.form = this.fb.group({
@@ -117,6 +125,11 @@ export class ItemCreatorComponent implements OnInit {
   fullReset() {
     this.form.reset();
     //window.location.reload();
+  }
+
+  bindReadItemStructureApi() {
+    const useremail = 'dinod@gmail.com';
+    this.itemStructureService.getItemStructures(useremail);
   }
 
   bindCreateItemApi() {
