@@ -19,15 +19,15 @@ export class NavbarSideComponent implements OnInit {
   },
   {
     "id": 2,
-    "type": 'Bus',
-  },
-  {
-    "id": 3,
-    "type": 'Van',
-  },
-  {
-    "id": 3,
     "type": 'Bag',
+  },
+  {
+    "id": 3,
+    "type": 'Phone',
+  },
+  {
+    "id": 3,
+    "type": 'Dish',
   }
   ];
 

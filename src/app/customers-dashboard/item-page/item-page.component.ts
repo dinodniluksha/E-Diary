@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { ItemStructureService } from 'src/app/customers-dashboard/item-structure.service';
 import { Globals } from '../globals';
 
 @Component({
@@ -16,21 +17,34 @@ export class ItemPageComponent implements OnInit {
   closeResult!: string;
   modalOptions!: NgbModalOptions;
 
-  constructor(private Activatedroute: ActivatedRoute, private modalService: NgbModal, private globals: Globals) {
+  constructor(private Activatedroute: ActivatedRoute, private modalService: NgbModal, private itemStructureService: ItemStructureService, private globals: Globals) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
     }
-  }
 
-  ngOnInit(): void {
-
-    this.sub = this.Activatedroute.paramMap.subscribe(params => {
+    this.Activatedroute.paramMap.subscribe(params => {
       console.log(params);
       this.type = params.get('type');
       console.log('Call API by : ' + this.type);
       this.globals.itemType = this.type;
+
+      // this.resetArray(this.globals.myAttributes);
+      const useremail = 'dinod@gmail.com';
+      this.itemStructureService.getItemStructure(useremail, this.type).subscribe((data: any) => {
+        // this.userAttributes = data;
+        this.resetArray(this.globals.myAttributes);
+        console.log(data.structureFields);
+        for (var key in data.structureFields) {
+          this.globals.myAttributes.push(key);
+        }
+        //console.log(this.globals.myAttributes);
+      });
     });
+  }
+
+  ngOnInit(): void {
+
   }
 
   open(content: any) {
@@ -51,5 +65,9 @@ export class ItemPageComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  resetArray(source: any) {
+    source.splice(0, source.length);
   }
 }

@@ -20,29 +20,14 @@ export class ItemCreatorComponent implements OnInit {
   userAttributes!: string[];
   attributesData: any = {};
 
+  basket: string[] = [];
 
   ngOnInit(): void {
-  }
-
-  setUserAttributes(type: any) {
-    this.bindReadItemStructureApi();
-    switch (type) {
-      case 'Car':
-        this.userAttributes = ['size', 'color', 'capacity', 'price', 'year'];
-        break;
-      case 'Bus':
-        this.userAttributes = ['size', 'color', 'capacity', 'price'];
-        break;
-      case 'Van':
-        this.userAttributes = ['size', 'price', 'year'];
-        break;
-      case 'Bag':
-        this.userAttributes = ['color', 'capacity'];
-        break;
-    }
+    console.log('create item creator form' + this.globals.myAttributes);
   }
 
   buildItemCreatorForm(): FormGroup {
+    this.userAttributes = this.globals.myAttributes;
     for (let i = 0; i < this.userAttributes.length; i++) {
       console.log(this.userAttributes[i]);
       this.attributesData[this.userAttributes[i]] = [''];
@@ -63,7 +48,7 @@ export class ItemCreatorComponent implements OnInit {
     private globals: Globals
   ) {
     console.log(globals.itemType);
-    this.setUserAttributes(globals.itemType);
+    //this.setUserAttributes(globals.itemType);
     this.form = this.fb.group({
       useremail: [''],
       type: [''],
@@ -125,11 +110,6 @@ export class ItemCreatorComponent implements OnInit {
   fullReset() {
     this.form.reset();
     //window.location.reload();
-  }
-
-  bindReadItemStructureApi() {
-    const useremail = 'dinod@gmail.com';
-    this.itemStructureService.getItemStructures(useremail);
   }
 
   bindCreateItemApi() {
