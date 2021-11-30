@@ -124,9 +124,9 @@ exports.updateItemStructure = (req, res) => {
 
 exports.getItemStructure = (req, res) => {
     // Validate request
-    if (!req.body.useremail) {
+    if (!req.query.useremail) {
         return res.status(400).send({
-            email: req.body.useremail,
+            email: req.query.useremail,
             message: "Sorry...request content can not be empty"
         });
     }
@@ -137,8 +137,8 @@ exports.getItemStructure = (req, res) => {
         dbo.collection("itemstructures").findOne({
             $and: [{
                 userEmail
-                    : req.body.useremail
-            }, { itemType: req.body.itemtype }]
+                    : req.query.useremail
+            }, { itemType: req.query.itemtype }]
         }, { projection: { _id: 0, createdAt: 0, updatedAt: 0, __v: 0 } }, function (err, result) {
             if (err) throw err;
             console.log("Find result from result : " + JSON.stringify(result));
@@ -150,9 +150,9 @@ exports.getItemStructure = (req, res) => {
 
 exports.getItemStructures = (req, res) => {
     // Validate request
-    if (!req.body.useremail) {
+    if (!req.query.useremail) {
         return res.status(400).send({
-            email: req.body.useremail,
+            email: req.query.useremail,
             message: "Sorry...request content can not be empty"
         });
     }
@@ -160,7 +160,7 @@ exports.getItemStructures = (req, res) => {
     MongoClient.connect(dbConfig.serverUrl, function (err, db) {
         if (err) throw err;
         var dbo = db.db("eDiaryDB");
-        dbo.collection("itemstructures").find({ userEmail: req.body.useremail }, { projection: { _id: 0, itemType: 1 } }).toArray(function (err, result) {
+        dbo.collection("itemstructures").find({ userEmail: req.query.useremail }, { projection: { _id: 0, itemType: 1 } }).toArray(function (err, result) {
             if (err) throw err;
             console.log(result);
             res.send({
@@ -170,4 +170,4 @@ exports.getItemStructures = (req, res) => {
             db.close();
         });
     });
-}
+};
