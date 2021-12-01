@@ -17,7 +17,7 @@ export class ItemStructureService {
 
   getItemStructures(user: any) {
     console.log('Call Item structures retriew API');
-    this.http.get('http://e-diary-app.herokuapp.com/get-item-structures?useremail=' + user).subscribe(
+    this.http.get('https://e-diary-app.herokuapp.com/get-item-structures?useremail=' + user).subscribe(
       (response) => {
         console.log(response);
       },
@@ -26,7 +26,7 @@ export class ItemStructureService {
   }
 
   getItemStructure(user: any, itemType: any): Observable<ItemStructure> {
-    return this.http.get<ItemStructure>('http://e-diary-app.herokuapp.com/get-item-structure?useremail=' + user + '&itemtype=' + itemType)
+    return this.http.get<ItemStructure>('https://e-diary-app.herokuapp.com/get-item-structure?useremail=' + user + '&itemtype=' + itemType)
       .pipe(
         retry(1),
         catchError(this.httpError)
