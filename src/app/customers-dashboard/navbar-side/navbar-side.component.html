@@ -1,8 +1,31 @@
 <ul class="nav-side-ul">
-  <!-- <li routerLinkActive="active-nav-side"><a [routerLink]="['/car', 2]">Test-1</a></li>
-  <li routerLinkActive="active-nav-side"><a routerLink="land">Test-2</a></li> -->
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+    + Add New Category
+  </button>
 
   <li routerLinkActive="active-nav-side" *ngFor="let itemStruct of itemStructs;">
     <a [routerLink]="['/home', itemStruct.type]">{{itemStruct.type}}</a>
   </li>
 </ul>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      New Category
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      <span aria-hidden="true">
+        ×
+      </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-item-structure-creator></app-item-structure-creator>
+  </div>
+  <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+            Save
+        </button>
+    </div> -->
+</ng-template>

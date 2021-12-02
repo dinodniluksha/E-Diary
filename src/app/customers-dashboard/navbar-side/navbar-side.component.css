@@ -8,6 +8,9 @@
     height: 100%; /* Full height */
     position: fixed; /* Make it stick, even on scroll */
     top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     overflow: auto; /* Enable scrolling if the sidenav has too much content */
   }
   
