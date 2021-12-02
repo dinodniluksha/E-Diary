@@ -4,7 +4,7 @@ import { ImageStoreService } from 'src/app/customers-dashboard/image-store.servi
 import { ItemService } from 'src/app/customers-dashboard/item.service';
 import { ItemStructureService } from 'src/app/customers-dashboard/item-structure.service';
 import { Globals } from '../globals';
-
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-item-creator',
@@ -21,9 +21,10 @@ export class ItemCreatorComponent implements OnInit {
   attributesData: any = {};
 
   basket: string[] = [];
+  formReady: boolean = false;
 
   ngOnInit(): void {
-    console.log('create item creator form' + this.globals.myAttributes);
+    this.spinner.show();
   }
 
   buildItemCreatorForm(): FormGroup {
@@ -45,16 +46,32 @@ export class ItemCreatorComponent implements OnInit {
     private imageStoreService: ImageStoreService,
     private itemService: ItemService,
     private itemStructureService: ItemStructureService,
-    private globals: Globals
+    private globals: Globals,
+    private spinner: NgxSpinnerService
   ) {
-    console.log(globals.itemType);
-    //this.setUserAttributes(globals.itemType);
-    this.form = this.fb.group({
-      useremail: [''],
-      type: [''],
-      attributes: this.buildItemCreatorForm(),
-    });
+    console.log('Call item structure API: ' + this.globals.itemType);
 
+    const useremail = 'dinod@gmail.com';
+    this.itemStructureService.getItemStructure(useremail, globals.itemType).subscribe({
+      next: (data: any) => {
+        this.resetArray(this.globals.myAttributes);
+        console.log(data.structureFields);
+        for (var key in data.structureFields) {
+          this.globals.myAttributes.push(key);
+        }
+        //console.log(this.globals.myAttributes);
+      },
+      complete: () => {
+        console.log('API call completed');
+        this.spinner.hide();
+        this.formReady = true;
+        this.form = this.fb.group({
+          useremail: [''],
+          type: [''],
+          attributes: this.buildItemCreatorForm(),
+        });
+      }
+    });
   }
 
   selectImage(event: any) {
@@ -120,5 +137,9 @@ export class ItemCreatorComponent implements OnInit {
     formData.append('attributes', JSON.stringify(this.form.get('attributes')?.value));
 
     this.itemService.callCreateItemEndPoint(formData);
+  }
+
+  resetArray(source: any) {
+    source.splice(0, source.length);
   }
 }

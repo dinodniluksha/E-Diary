@@ -23,29 +23,17 @@ export class ItemPageComponent implements OnInit {
       backdropClass: 'customBackdrop'
     }
 
-    this.Activatedroute.paramMap.subscribe(params => {
-      console.log(params);
-      this.type = params.get('type');
-      console.log('Call API by : ' + this.type);
-      this.globals.itemType = this.type;
-
-      // this.resetArray(this.globals.myAttributes);
-      const useremail = 'dinod@gmail.com';
-      this.itemStructureService.getItemStructure(useremail, this.type).subscribe((data: any) => {
-        // this.userAttributes = data;
-        this.resetArray(this.globals.myAttributes);
-        console.log(data.structureFields);
-        for (var key in data.structureFields) {
-          this.globals.myAttributes.push(key);
-        }
-        //console.log(this.globals.myAttributes);
-      });
+    this.Activatedroute.paramMap.subscribe({
+      next: params => {
+        console.log(params);
+        this.type = params.get('type');
+        console.log('Setting global type : ' + this.type);
+        this.globals.itemType = this.type;
+      },
     });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   open(content: any) {
     this.modalService.open(content,
@@ -65,9 +53,5 @@ export class ItemPageComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  resetArray(source: any) {
-    source.splice(0, source.length);
   }
 }

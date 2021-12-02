@@ -1,25 +1,34 @@
-<form [formGroup]="form" (ngSubmit)="itemCreate()">
-    <div formGroupName="attributes">
-        <div class="file-field md-form" *ngFor="let attribute of userAttributes;">
-            <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
-                <span>{{attribute}}</span><span>: </span>
-                <input type="text" formControlName="{{attribute}}">
+<div *ngIf="formReady">
+    <form [formGroup]="form" (ngSubmit)="itemCreate()">
+        <div formGroupName="attributes">
+            <div class="file-field md-form" *ngFor="let attribute of userAttributes;">
+                <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+                    <span>{{attribute}}</span><span>: </span>
+                    <input type="text" formControlName="{{attribute}}">
+                </div>
+                <br>
+            </div>
+            <div class="file-field md-form">
+                <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+                    <span>Image</span><span>: </span>
+                    <input type="file" (change)="selectImage($event)">
+                </div>
+            </div>
+            <div *ngIf="file" class="progress mt-2">
+                <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
+                    aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+                    {{ percentage }}%
+                </div>
             </div>
             <br>
+            <button mdbBtn color="primary" type="submit">Create Item</button>
         </div>
-        <div class="file-field md-form">
-            <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
-                <span>Image</span><span>: </span>
-                <input type="file" (change)="selectImage($event)">
-            </div>
-        </div>
-        <div *ngIf="file" class="progress mt-2">
-            <div class="progress-bar progress-bar-info" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-                aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
-                {{ percentage }}%
-            </div>
-        </div>
-        <br>
-        <button mdbBtn color="primary" type="submit">Create Item</button>
-    </div>
-</form>
+    </form>
+</div>
+
+<div class="spinner-box" *ngIf="!formReady">
+    <ngx-spinner class="spinner" bdColor="rgba(0,0,0,0.8)" size="medium" color="#fff" type="square-loader"
+        [fullScreen]="false">
+        <p class="spinner-text">Please Wait, Form is Building...</p>
+    </ngx-spinner>
+</div>
