@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="itemCreate()">
+    <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+        <span>Item Type</span><span>: </span>
+        <input type="text" id="itemtype" name="itemtype" [(ngModel)]="itemtype" formControlName="itemtype">
+    </div>
+    <br>
+    <div formGroupName="structurefields">
+        <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+            <input type="text" id="attribute" name="attribute" placeholder="Field's Name" #attribute>
+            <button (click)="addField()">+ Field</button>
+        </div>
+        <br>
+        <div class="file-field md-form" *ngFor="let attribute of userAttributes;">
+            <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
+                <input type="text" id="attribute" name="attribute" value="{{attribute}}">
+                <select formControlName="{{attribute}}">
+                    <option [ngValue]="null" selected disabled>Select Data Type</option>
+                    <option *ngFor="let user of userArray" [ngValue]="user">{{user}}</option>
+                </select>
+                <button (click)="removeField(attribute)">- Field</button>
+            </div>
+            <br>
+        </div>
+        <br>
+        <button mdbBtn color="primary" type="submit">Create Item</button>
+    </div>
+</form>

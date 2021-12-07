@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { CustomersDashboardRoutingModule } from './customers-dashboard-routing.module';
 import { CustomersDashboardComponent } from './customers-dashboard.component';
@@ -12,6 +13,7 @@ import { ItemCreatorComponent } from './item-creator/item-creator.component';
 import { ItemPageComponent } from './item-page/item-page.component';
 import { Globals } from './globals';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ItemStructureCreatorComponent } from './item-structure-creator/item-structure-creator.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NavbarSideComponent,
     ItemCreatorComponent,
     ItemPageComponent,
+    ItemStructureCreatorComponent,
   ],
   imports: [
     CommonModule,
     CustomersDashboardRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxSpinnerModule,
   ],
   providers: [Globals],
