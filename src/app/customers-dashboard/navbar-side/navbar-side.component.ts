@@ -40,6 +40,10 @@ export class NavbarSideComponent implements OnInit {
   {
     "id": 3,
     "type": 'Dish',
+  },
+  {
+    "id": 3,
+    "type": 'House',
   }
   ];
 

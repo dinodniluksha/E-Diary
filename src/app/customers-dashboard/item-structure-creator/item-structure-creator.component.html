@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="itemCreate()">
+<form [formGroup]="form">
     <div mdbBtn color="primary" size="sm" class="waves-light" mdbWavesEffect>
         <span>Item Type</span><span>: </span>
         <input type="text" id="itemtype" name="itemtype" [(ngModel)]="itemtype" formControlName="itemtype">
@@ -22,6 +22,6 @@
             <br>
         </div>
         <br>
-        <button mdbBtn color="primary" type="submit">Create Item</button>
+        <button mdbBtn color="primary" type="button" (click)="createItemStructure()">Create Item</button>
     </div>
 </form>

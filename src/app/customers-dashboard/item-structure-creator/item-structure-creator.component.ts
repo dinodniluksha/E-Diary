@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { ItemStructureService } from '../item-structure.service';
 
 @Component({
   selector: 'app-item-structure-creator',
@@ -17,7 +18,7 @@ export class ItemStructureCreatorComponent implements OnInit {
   attribute: string = '';
   user: string = 'dinod@gmail.com';
 
-  constructor(private fb: FormBuilder,) {
+  constructor(private fb: FormBuilder, private itemStructureService: ItemStructureService) {
     this.form = this.fb.group({
       useremail: [''],
       itemtype: [''],
@@ -62,8 +63,16 @@ export class ItemStructureCreatorComponent implements OnInit {
     });
   }
 
-  itemCreate() {
+  createItemStructure() {
     console.log(this.form.value);
+    var formData: any = new FormData();
+
+    formData.append('useremail', this.form.get('useremail')?.value);
+    formData.append('itemtype', this.form.get('itemtype')?.value);
+    formData.append('structurefields', JSON.stringify(this.form.get('structurefields')?.value));
+
+    this.itemStructureService.callCreateItemStructureApi(formData);
+    (<HTMLInputElement>document.getElementById("close")).click();
   }
 
   removeElementFromAttributes(element: string) {
