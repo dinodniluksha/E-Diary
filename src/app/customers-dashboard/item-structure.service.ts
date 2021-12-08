@@ -33,6 +33,21 @@ export class ItemStructureService {
       )
   }
 
+  callCreateItemStructureApi(formData: any) {
+    this.http.post('https://e-diary-app.herokuapp.com/create-item-structure', formData).subscribe(
+      {
+        next: (response: any) => {
+          console.log(response);
+          window.alert(response.itemType + ' category is created by ' + response.userEmail + ' successfully');
+          window.location.reload();
+        },
+        error: (error: any) => {
+          window.alert(error.error.message);
+        }
+      }
+    );
+  }
+
   httpError(error: any) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
