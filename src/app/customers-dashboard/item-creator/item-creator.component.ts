@@ -17,6 +17,7 @@ export class ItemCreatorComponent implements OnInit {
   percentage = 0;
   nullImageUrl = 'https://firebasestorage.googleapis.com/v0/b/e-diary-1e542.appspot.com/o/E-Diary_Images%2Fno_image.png?alt=media&token=030fe8e0-09c5-4c32-a5e8-d3af795992eb';
 
+  userEmail: string | null = this.globals.userEmail;
   userAttributes!: string[];
   attributesData: any = {};
 
@@ -51,7 +52,7 @@ export class ItemCreatorComponent implements OnInit {
   ) {
     console.log('Call item structure API: ' + this.globals.itemType);
 
-    const useremail = 'dinod@gmail.com';
+    const useremail = this.userEmail;
     this.itemStructureService.getItemStructure(useremail, globals.itemType).subscribe({
       next: (data: any) => {
         this.resetArray(this.globals.myAttributes);
@@ -82,7 +83,7 @@ export class ItemCreatorComponent implements OnInit {
     if (this.file) {
       console.log(this.file);
       this.form.patchValue({
-        useremail: 'dinod@gmail.com',
+        useremail: this.userEmail,
         type: this.globals.itemType,
       });
       this.imageStoreService.imageUpload(this.file).subscribe(
@@ -96,7 +97,7 @@ export class ItemCreatorComponent implements OnInit {
     }
     else {
       this.form.patchValue({
-        useremail: 'dinod@gmail.com',
+        useremail: this.userEmail,
         type: this.globals.itemType,
       });
       console.log(this.form.value);

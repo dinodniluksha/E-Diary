@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Globals } from './globals';
 
 @Component({
   selector: 'app-customers-dashboard',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private globals: Globals,) {
+    this.globals.userEmail = localStorage.getItem('userEmail');
+  }
 
   ngOnInit(): void {
   }
