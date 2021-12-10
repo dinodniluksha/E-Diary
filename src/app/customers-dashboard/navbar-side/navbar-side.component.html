@@ -4,7 +4,7 @@
   </button>
 
   <li routerLinkActive="active-nav-side" *ngFor="let itemStruct of itemStructs;">
-    <a [routerLink]="['/home', itemStruct.type]">{{itemStruct.type}}</a>
+    <a [routerLink]="['/home', itemStruct.itemType]">{{itemStruct.itemType}}</a>
   </li>
 </ul>
 

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ItemStructure } from './item-struct';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
-export class ItemStructure {
-  itemType!: string;
-  structureFields!: any;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +12,12 @@ export class ItemStructureService {
 
   constructor(private http: HttpClient) { }
 
-  getItemStructures(user: any) {
-    console.log('Call Item structures retriew API');
-    this.http.get('https://e-diary-app.herokuapp.com/get-item-structures?useremail=' + user).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => console.log(error)
-    );
+  getItemStructures(user: any): Observable<ItemStructure> {
+    return this.http.get<ItemStructure>('https://e-diary-app.herokuapp.com/get-item-structures?useremail=' + user)
+      .pipe(
+        retry(1),
+        catchError(this.httpError)
+      )
   }
 
   getItemStructure(user: any, itemType: any): Observable<ItemStructure> {
