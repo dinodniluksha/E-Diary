@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ItemStructureService } from '../item-structure.service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-item-structure-creator',
@@ -16,9 +17,9 @@ export class ItemStructureCreatorComponent implements OnInit {
   attributesData: any = {};
   itemtype: string = '';
   attribute: string = '';
-  user: string = 'dinod@gmail.com';
+  userEmail: string | null = this.globals.userEmail;
 
-  constructor(private fb: FormBuilder, private itemStructureService: ItemStructureService) {
+  constructor(private fb: FormBuilder, private itemStructureService: ItemStructureService, private globals: Globals) {
     this.form = this.fb.group({
       useremail: [''],
       itemtype: [''],
@@ -45,7 +46,7 @@ export class ItemStructureCreatorComponent implements OnInit {
     this.userAttributes.push(attributeValue);
     console.log('Try to do add a new field');
     this.form = this.fb.group({
-      useremail: [this.user],
+      useremail: [this.userEmail],
       itemtype: [this.itemtype],
       structurefields: this.buildItemCreatorForm(),
     });
@@ -57,7 +58,7 @@ export class ItemStructureCreatorComponent implements OnInit {
     this.removeElementFromAttributes(x);
     this.attributesData = {};
     this.form = this.fb.group({
-      useremail: [this.user],
+      useremail: [this.userEmail],
       itemtype: [this.itemtype],
       structurefields: this.buildItemCreatorForm(),
     });

@@ -34,7 +34,7 @@ export class NavbarSideComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('socialusers') != null) {
-      let useremail = 'dinod@gmail.com';
+      let useremail = this.globals.userEmail;
       this.itemStructureService.getItemStructures(useremail).subscribe({
         next: (data: any) => {
           //console.log(data.items);
@@ -42,7 +42,9 @@ export class NavbarSideComponent implements OnInit {
         },
         complete: () => {
           console.log(this.itemStructs);
-          this.router.navigate(['/home/' + this.itemStructs[0].itemType]);
+          if (this.itemStructs.length > 0) {
+            this.router.navigate(['/home/' + this.itemStructs[0].itemType]);
+          }
         }
       });
     }
