@@ -1,7 +1,9 @@
-export class ItemStruct {
-    type!: string;
+export class ItemStructure {
+    itemType!: string;
+    structureFields!: any;
 
-    constructor(type: string) {
-        this.type = type;
+    constructor(itemType: string, structureFields: any) {
+        this.itemType = itemType;
+        this.structureFields = structureFields;
     }
 }

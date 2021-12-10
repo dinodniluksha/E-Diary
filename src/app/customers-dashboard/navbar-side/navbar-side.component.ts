@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemStruct } from '../item-struct';
+import { ItemStructure } from '../item-struct';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-
+import { ItemStructureService } from '../item-structure.service';
+import { Router } from '@angular/router';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-navbar-side',
@@ -16,40 +18,34 @@ export class NavbarSideComponent implements OnInit {
   closeResult!: string;
   modalOptions!: NgbModalOptions;
 
-  constructor(private modalService: NgbModal) {
+  constructor(
+    private modalService: NgbModal,
+    private itemStructureService: ItemStructureService,
+    private globals: Globals,
+    private router: Router,
+  ) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
     }
   }
 
-  itemStructs!: ItemStruct[];
-
-  dummyItemStructs = [{
-    "id": 1,
-    "type": 'Car',
-  },
-  {
-    "id": 2,
-    "type": 'Bag',
-  },
-  {
-    "id": 3,
-    "type": 'Phone',
-  },
-  {
-    "id": 3,
-    "type": 'Dish',
-  },
-  {
-    "id": 3,
-    "type": 'House',
-  }
-  ];
+  itemStructs!: ItemStructure[];
 
   ngOnInit(): void {
-    this.itemStructs = this.dummyItemStructs;
-    console.log(this.itemStructs);
+    if (localStorage.getItem('socialusers') != null) {
+      let useremail = 'dinod@gmail.com';
+      this.itemStructureService.getItemStructures(useremail).subscribe({
+        next: (data: any) => {
+          //console.log(data.items);
+          this.itemStructs = data.items;
+        },
+        complete: () => {
+          console.log(this.itemStructs);
+          this.router.navigate(['/home/' + this.itemStructs[0].itemType]);
+        }
+      });
+    }
   }
 
   open(content: any) {
