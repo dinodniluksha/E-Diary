@@ -78,9 +78,9 @@ exports.updateItem = (req, res) => {
 
 exports.getItems = (req, res) => {
   // Validate request
-  if (!req.body.useremail) {
+  if (!req.query.useremail) {
     return res.status(400).send({
-      content: req.body.useremail,
+      content: req.query.useremail,
       message: "Sorry...request content can not be empty"
     });
   }
@@ -88,7 +88,7 @@ exports.getItems = (req, res) => {
   MongoClient.connect(dbConfig.serverUrl, function (err, db) {
     if (err) throw err;
     var dbo = db.db("eDiaryDB");
-    dbo.collection("items").find({ userEmail: req.body.useremail, type: req.body.type }).toArray(function (err, result) {
+    dbo.collection("items").find({ userEmail: req.query.useremail, type: req.query.type }).toArray(function (err, result) {
       if (err) throw err;
       console.log(result);
       res.send({
