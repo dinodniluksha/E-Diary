@@ -17,6 +17,8 @@ export class ItemPageComponent implements OnInit {
   closeResult!: string;
   modalOptions!: NgbModalOptions;
 
+  items = ['text', 'number', 'date'];
+
   constructor(private Activatedroute: ActivatedRoute, private modalService: NgbModal, private itemStructureService: ItemStructureService, private globals: Globals) {
     this.modalOptions = {
       backdrop: 'static',

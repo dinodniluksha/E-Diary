@@ -14,6 +14,10 @@ import { ItemPageComponent } from './item-page/item-page.component';
 import { Globals } from './globals';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ItemStructureCreatorComponent } from './item-structure-creator/item-structure-creator.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ItemDisplayComponent } from './item-display/item-display.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,7 @@ import { ItemStructureCreatorComponent } from './item-structure-creator/item-str
     ItemCreatorComponent,
     ItemPageComponent,
     ItemStructureCreatorComponent,
+    ItemDisplayComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +35,9 @@ import { ItemStructureCreatorComponent } from './item-structure-creator/item-str
     ReactiveFormsModule,
     FormsModule,
     NgxSpinnerModule,
+    MatCardModule,
+    MatButtonModule,
+    FlexLayoutModule,
   ],
   providers: [Globals],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
