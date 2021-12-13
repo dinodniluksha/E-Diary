@@ -1,15 +1,16 @@
 <div>
-    <div class="row nav-row">
-      <app-navbar-top></app-navbar-top>
+  <div class="row nav-row">
+    <app-navbar-top></app-navbar-top>
+  </div>
+  <div class="row">
+    <div class="col-1">
+      <app-navbar-side></app-navbar-side>
     </div>
-    <div class="row">
-      <div class="col-1">
-        <app-navbar-side></app-navbar-side>
-      </div>
-      <div class="col-11">
-        <div class="container" style="position: fixed;left: 20%;top: 20%;height: 90%;background-color: rgb(204, 232, 250);">
-          <router-outlet></router-outlet>
-        </div>
+    <div class="col-11">
+      <div class="container"
+        style="position: fixed;left: 17%;top: 10%;height: 90%;background-color: rgb(204, 232, 250);">
+        <router-outlet></router-outlet>
       </div>
     </div>
+  </div>
 </div>
