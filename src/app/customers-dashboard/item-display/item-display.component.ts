@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Item } from '../item';
 
 @Component({
   selector: 'app-item-display',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ItemDisplayComponent implements OnInit {
 
-  @Input() item: string[] = [''];
+  @Input() item!: Item[];
 
   constructor() { }
 
