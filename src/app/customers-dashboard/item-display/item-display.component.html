@@ -1,38 +1,22 @@
 <div class="content">
     <mat-card class="mat-elevation-z4">
         <mat-card-header>
-            <mat-card-title>Himalayan Peaks</mat-card-title>
+            <mat-card-title>{{itemBox.type}} - {{itemNo}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image
-            src="https://firebasestorage.googleapis.com/v0/b/e-diary-1e542.appspot.com/o/E-Diary_Images%2F1639134010392?alt=media&token=bf75d438-263d-45ae-afda-a4edf31c6c2d">
+        <mat-card-subtitle>
+            {{itemBox._id}}
+        </mat-card-subtitle>
+        <img mat-card-image src="{{itemBox.attributes.image.imageUrl}}">
         <mat-card-content>
-            <p>
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-                The Himalayas is a mountain range in Asia.
-            </p>
-            <div *ngFor="let x of item">
-                {{x}}
+            <div *ngFor="let attribute of attributes">
+                <p>
+                    {{attribute}}
+                </p>
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+            <button mat-button>EDIT</button>
+            <button mat-button>MARK</button>
         </mat-card-actions>
     </mat-card>
 </div>

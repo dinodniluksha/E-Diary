@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Item } from './item';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +19,26 @@ export class ItemService {
       },
       (error) => console.log(error)
     );
+  }
+
+  getItems(user: any, itemType: any): Observable<Item> {
+    return this.http.get<Item>('https://e-diary-app.herokuapp.com/get-items?useremail=' + user + '&type=' + itemType)
+      .pipe(
+        retry(1),
+        catchError(this.httpError)
+      )
+  }
+
+  httpError(error: any) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      // client side error
+      msg = error.error.message;
+    } else {
+      // server side error
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(msg);
+    return throwError(msg);
   }
 }
