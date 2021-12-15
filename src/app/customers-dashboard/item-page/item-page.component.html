@@ -28,20 +28,20 @@
 
 <div class="items-box">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" *ngFor="let item of itemPack" (click)="open(itembox);" style="cursor: pointer;">
+        <div fxFlex="25%" *ngFor="let item of itemPack; let i = index">
             <mat-card class="mat-elevation-z4">
                 <mat-card-header>
-                    <mat-card-title>Mountains</mat-card-title>
+                    <mat-card-title>{{type}} - {{i+1}}</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="{{item.attributes.image.imageUrl}}">
+                <img mat-card-image src="{{item.attributes.image.imageUrl}}" (click)="openItem(itembox, item, i+1);"
+                    style="cursor: pointer;">
                 <mat-card-content>
                     <p>
-                        The Himalayas is a mountain range in Asia.
                     </p>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button>LIKE</button>
-                    <button mat-button>SHARE</button>
+                    <button mat-button (click)="openItem(itembox, item, i+1);">SHOW</button>
+                    <button mat-button>DELETE</button>
                 </mat-card-actions>
             </mat-card>
         </div>
@@ -50,9 +50,7 @@
 
 <ng-template #itembox let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">
-            {{type}}
-        </h4>
+        <span></span>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
             <span aria-hidden="true">
@@ -61,7 +59,7 @@
         </button>
     </div>
     <div class="modal-body">
-        <app-item-display></app-item-display>
+        <app-item-display [itemBox]="item" [itemNo]="cardNo"></app-item-display>
     </div>
     <!-- <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">

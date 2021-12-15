@@ -1,21 +1,22 @@
 <div class="content">
     <mat-card class="mat-elevation-z4">
         <mat-card-header>
-            <mat-card-title>Himalayan Peaks</mat-card-title>
+            <mat-card-title>{{itemBox.type}} - {{itemNo}}</mat-card-title>
         </mat-card-header>
-        <img mat-card-image
-            src="https://firebasestorage.googleapis.com/v0/b/e-diary-1e542.appspot.com/o/E-Diary_Images%2Fno_image.png?alt=media&token=030fe8e0-09c5-4c32-a5e8-d3af795992eb">
+        <mat-card-subtitle>
+            {{itemBox._id}}
+        </mat-card-subtitle>
+        <img mat-card-image src="{{itemBox.attributes.image.imageUrl}}">
         <mat-card-content>
-            <p>
-                a
-            </p>
-            <!-- <div *ngFor="let x of item">
-                {{x.type}}
-            </div> -->
+            <div *ngFor="let attribute of attributes">
+                <p>
+                    {{attribute}}
+                </p>
+            </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
+            <button mat-button>EDIT</button>
+            <button mat-button>MARK</button>
         </mat-card-actions>
     </mat-card>
 </div>

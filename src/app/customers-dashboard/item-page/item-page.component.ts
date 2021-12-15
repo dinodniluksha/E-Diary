@@ -21,7 +21,8 @@ export class ItemPageComponent implements OnInit {
 
   items = ['text', 'number', 'date'];
   itemPack!: Item[];
-  varx!: number;
+  item!: Item;
+  cardNo!: number;
 
   constructor(private Activatedroute: ActivatedRoute, private modalService: NgbModal, private itemService: ItemService, private globals: Globals) {
     this.modalOptions = {
@@ -73,6 +74,18 @@ export class ItemPageComponent implements OnInit {
         this.closeResult =
           `Dismissed ${this.getDismissReason(reason)}`;
       });
+  }
+
+  openItem(content: any, item: any, value: number) {
+    this.modalService.open(content,
+      { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult =
+          `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    this.item = item;
+    this.cardNo = value;
   }
 
   private getDismissReason(reason: any): string {
