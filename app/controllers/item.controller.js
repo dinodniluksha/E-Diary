@@ -100,6 +100,32 @@ exports.getItems = (req, res) => {
   });
 };
 
+exports.deleteItem = (req, res) => {
+  // Validate request
+  if (!req.query.useremail) {
+    return res.status(400).send({
+      content: req.query.useremail,
+      message: "Sorry...request content can not be empty"
+    });
+  }
+
+  MongoClient.connect(dbConfig.serverUrl, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("eDiaryDB");
+    const query = { userEmail: req.query.useremail, _id: ObjectId(req.query.id) };
+    dbo.collection("items").deleteOne(query, function (err, result) {
+      if (err) throw err;
+      console.log("Deletion result : " + JSON.stringify(result));
+      res.send({
+        //res: result,
+        deletedCount: result.deletedCount,
+        message: (result.deletedCount == 1) ? "Recoard is deleted successfuly" : "Sorry...this recoard can't be deleted"
+      });
+      db.close();
+    });
+  });
+};
+
 exports.test = (req, res) => {
   // Validate request
   if (!req.body.useremail) {

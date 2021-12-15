@@ -6,4 +6,5 @@ module.exports = (app) => {
     app.get('/get-items', Items.getItems);
     app.post('/create-item', Items.createItem);
     app.patch('/update-item', Items.updateItem);
+    app.delete('/delete-item', Items.deleteItem);
 }
