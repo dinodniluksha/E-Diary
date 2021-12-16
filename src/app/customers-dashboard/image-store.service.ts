@@ -8,7 +8,7 @@ import { finalize } from 'rxjs/operators';
 })
 export class ImageStoreService {
   downloadURL!: any;
-  key!:number;
+  key!: number;
   fileRef!: AngularFireStorageReference;
   uploadTask!: AngularFireUploadTask;
 
@@ -17,11 +17,11 @@ export class ImageStoreService {
 
   private subject = new Subject<any>();
 
-  imageUpload(file:File): Observable<number | undefined>{
+  imageUpload(file: File): Observable<number | undefined> {
     this.key = Date.now();
     const filePath = `E-Diary_Images/${this.key}`;
     this.fileRef = this.storage.ref(filePath);
-  
+
     this.uploadTask = this.storage.upload(filePath, file);
 
     // get notified when the download URL is available
@@ -33,17 +33,23 @@ export class ImageStoreService {
           this.callItemFormUpdate();
         });
       })
-    ).subscribe();  
+    ).subscribe();
     // observe percentage changes
     return this.uploadTask.percentageChanges();
   }
 
-  getItemFormUpdate(): Observable<any>{ 
+  getItemFormUpdate(): Observable<any> {
     return this.subject.asObservable();
   }
 
-  callItemFormUpdate(){
+  callItemFormUpdate() {
     console.log('Called itemFormUpdate(); function');
     this.subject.next();
+  }
+
+  imageDeletion(key: string): void {
+    const filePath = 'E-Diary_Images/' + key;
+    const storageRef = this.storage.ref(filePath);
+    storageRef.delete();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { ItemService } from 'src/app/customers-dashboard/item.service';
+import { ImageStoreService } from 'src/app/customers-dashboard/image-store.service';
 import { Globals } from '../globals';
 import { Item } from '../item';
 
@@ -24,7 +25,13 @@ export class ItemPageComponent implements OnInit {
   item!: Item;
   cardNo!: number;
 
-  constructor(private Activatedroute: ActivatedRoute, private modalService: NgbModal, private itemService: ItemService, private globals: Globals) {
+  constructor(
+    private Activatedroute: ActivatedRoute,
+    private modalService: NgbModal,
+    private itemService: ItemService,
+    private globals: Globals,
+    private imageStoreService: ImageStoreService,
+  ) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
@@ -64,6 +71,14 @@ export class ItemPageComponent implements OnInit {
         console.log(this.itemPack);
       }
     );
+  }
+
+  callDeleteItem(key: string, id: number) {
+    console.log(key);
+    if (key != null) {
+      this.imageStoreService.imageDeletion(key);
+    }
+    this.itemService.deleteItem(this.userEmail, id);
   }
 
   open(content: any) {
