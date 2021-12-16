@@ -73,11 +73,12 @@ export class ItemPageComponent implements OnInit {
     );
   }
 
-  callDeleteItem(key: string) {
+  callDeleteItem(key: string, id: number) {
     console.log(key);
     if (key != null) {
       this.imageStoreService.imageDeletion(key);
     }
+    this.itemService.deleteItem(this.userEmail, id);
   }
 
   open(content: any) {

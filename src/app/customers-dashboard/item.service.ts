@@ -4,6 +4,7 @@ import { Item } from './item';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,17 @@ export class ItemService {
         retry(1),
         catchError(this.httpError)
       )
+  }
+
+  deleteItem(user: any, itemId: any) {
+    this.http.delete('https://e-diary-app.herokuapp.com/delete-item?useremail=' + user + '&id=' + itemId).subscribe(
+      (response) => {
+        //console.log(response);
+        window.alert('Record is deleted successfully');
+        window.location.reload();
+      },
+      (error) => console.log(error)
+    );
   }
 
   httpError(error: any) {
